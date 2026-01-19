@@ -1,29 +1,44 @@
 package org.pentagonprofilestats.testCases;
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.pentagonprofilestats.pageObjects.PPSHomePageObjects;
 import org.pentagonprofilestats.testBase.BaseTestCase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
+import io.qameta.allure.*;
 public class PPS01TestCaseNameField extends BaseTestCase {
 
     PPSHomePageObjects homeObj;
-    @BeforeClass
+    @BeforeClass(groups = {"smoke", "functional", "positive", "negative", "name"})
     public void initializeObject(){
         homeObj = getPPPHomePageObjects();
     }
 
-    @Test(priority = 1 ,dataProvider = "validNamesDataProvider",
+    @Test(priority = 1 ,groups = {"smoke", "functional", "positive", "name"} ,dataProvider = "validNamesDataProvider",
             dataProviderClass = org.pentagonprofilestats.utilities.DataProviders.class)
+    @Description("Validating names in the Name field")
+    @Severity(SeverityLevel.MINOR)
     public void validName(String userName){
+        logger.info("Test Started : validName | userName Entered ='{}'", userName);
         homeObj.setUserName(userName);
-        Assert.assertEquals(homeObj.getUserName(), userName);
+        try {
+            Assert.assertEquals(homeObj.getUserName(), userName);
+
+        }catch (AssertionError e){
+//            logger.error("");
+            Assert.fail("Name not valid");
+
+        }
     }
 
-    @Test(priority = 2,dataProvider = "EmptyNameDataProvider",
+    @Test(priority = 2,groups = {"functional", "negative", "name", "alert"} ,dataProvider = "EmptyNameDataProvider",
             dataProviderClass = org.pentagonprofilestats.utilities.DataProviders.class)
+    @Description("Validating the Alert for Empty Name")
+
     public void emptyName(String name, String experience, String skills,
                           String websitesDeveloped, String appsMade) throws InterruptedException {
         homeObj.setUserName(name)
@@ -37,6 +52,8 @@ public class PPS01TestCaseNameField extends BaseTestCase {
         nameRequiredAlert.accept();
         Assert.assertEquals(alertMessage,"Name required!");
     }
+
+
 
 
 }

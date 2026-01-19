@@ -1,0 +1,23 @@
+<suite name="PentagonProfileSuite">
+    <listeners>
+        <listener class-name="org.pentagonprofilestats.utilities.ExtentManager"/>
+    </listeners>
+
+    <test name="PentagonProfileTests">
+        <parameter name="os" value="windows"/>
+        <parameter name="browser" value="chrome"/>
+        <groups>
+            <run>
+                <include name="name"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="org.pentagonprofilestats.testCases.PPS01TestCaseNameField"/>
+            <class name="org.pentagonprofilestats.testCases.PPS02TestCaseYearsOfExperienceField"/>
+            <class name="org.pentagonprofilestats.testCases.PPS03TestCaseSkillsField"/>
+            <class name="org.pentagonprofilestats.testCases.PPS04TestCaseWebsitesDeveloped"/>
+            <class name="org.pentagonprofilestats.testCases.PPS05TestCaseAppsMade"/>
+            <class name="org.pentagonprofilestats.testCases.PPS07TestCaseProfileAnalysis"/>
+        </classes>
+    </test>
+</suite>

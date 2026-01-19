@@ -31,6 +31,20 @@ public class DataProviders {
         return yearsOfExperienceData;
     }
 
+    @DataProvider(name = "skillsDataProvider")
+    public Object[][] dataForSkillsField() throws IOException {
+        Object[][] skillsDataWithStartingCharacter = excelDataProvider
+                .getData("testData/SkillsPopulate.xlsx", "Sheet1");
+        return skillsDataWithStartingCharacter;
+    }
+
+    @DataProvider(name = "skillsNegativeDataProvider")
+    public Object[][] dataForSkillsFieldNegative() throws IOException {
+        Object[][] skillsDataWithStartingCharacterNegative = excelDataProvider
+                .getData("testData/SkillsPopulateNegative.xlsx", "Sheet1");
+        return skillsDataWithStartingCharacterNegative;
+    }
+
     @DataProvider(name = "websitesDevelopedDataProvider")
     public Object[][] dataForWebsitesDeveloped(){
         Object[][] websitesDevelopedData = {
@@ -67,6 +81,13 @@ public class DataProviders {
         Object[][] AppsMadeData = excelDataProvider
                 .getData("testData/AppsMadeNegative.xlsx", "Sheet1");
         return AppsMadeData;
+    }
+
+    @DataProvider(name = "profileAnalysisDataProvider")
+    public Object[][] dataForProfileAnalysis() throws Exception {
+        Object[][] ProfileAnalysisData = excelDataProvider
+                .getData("testData/ProfileAnalysisData.xlsx", "Sheet1");
+        return ProfileAnalysisData;
     }
 
 }

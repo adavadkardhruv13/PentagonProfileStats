@@ -19,6 +19,27 @@ public class PPSHomePageObjects extends BasePageObjectsUtil {
         super(driver, timeouts);
     }
 
+    // -------- Header & Labels (as per your original validation) --------
+    @FindBy(xpath = "//div[@class='header']/h1")
+    private WebElement headerTitle;
+
+    @FindBy(xpath = "//div[@class='details']/label[text()='Name:']")
+    private WebElement nameLabel;
+
+    @FindBy(xpath = "//div[@class='details']/label[text()='Years of Experience:']")
+    private WebElement yearsOfExperienceLabel;
+
+    @FindBy(xpath = "//div[@class='autocomplete-box']/label[text()='Skills:']")
+    private WebElement skillsLabel;
+
+    @FindBy(xpath = "//div[@class='details']/label[text()='Websites Developed:']")
+    private WebElement websitesDevelopedLabel;
+
+    @FindBy(xpath = "//div[@class='details']/label[text()='Apps Made:']")
+    private WebElement appsMadeLabel;
+
+//    --------------------
+
     @FindBy(id="name")
     WebElement userName;
 
@@ -43,6 +64,10 @@ public class PPSHomePageObjects extends BasePageObjectsUtil {
     @FindBy(xpath = "//select[@id='experience']/option[text()!='Select']")
     List<WebElement> yearsOfExperienceDropDownList;
 
+    @FindBy(xpath="//div[@id='suggestionsList']/div[@class='suggestions']")
+    List<WebElement> skillsPopulatedElements;
+
+
     private Select select;
 
     private String[] skillsArray;
@@ -50,6 +75,8 @@ public class PPSHomePageObjects extends BasePageObjectsUtil {
     private List<String> skillsSelected;
 
     private List<String> experienceDropDownList;
+
+    private List<String> skillsPopulated;
 
     private List<String> actualExperienceDropDownList = Arrays.asList("0 Years","1 Year","2 Years","3 Years","4 Years","5+ Years");
 
@@ -99,8 +126,18 @@ public class PPSHomePageObjects extends BasePageObjectsUtil {
         return noOfAppsMade;
     }
 
-    public void clickSkillsDropDown(){
-        skills.click();
+    public List<String> getSkillsPopulated(){
+        skillsPopulated = new ArrayList<>();
+        for(WebElement skill : skillsPopulatedElements){
+            skillsPopulated.add(skill.getText());
+        }
+        return skillsPopulated;
+    }
+
+    public void enterStartingCharacterofSkillInSkillsField(String startingCharacter){
+        WebElement skillsPopulationTest = waitVisible(this.skills);
+        skillsPopulationTest.clear();
+        skillsPopulationTest.sendKeys(startingCharacter);
     }
 
 
@@ -167,4 +204,33 @@ public class PPSHomePageObjects extends BasePageObjectsUtil {
         Alert nameRequiredAlert = driver.switchTo().alert();
         return nameRequiredAlert;
     }
+
+    // ---------- Header getters ----------
+    public boolean isHeaderDisplayed() { return headerTitle.isDisplayed(); }
+    public String getHeaderText() { return headerTitle.getText(); }
+
+    // ---------- Labels: visibility + text ----------
+    public boolean isNameLabelDisplayed() { return nameLabel.isDisplayed(); }
+    public String getNameLabelText() { return nameLabel.getText(); }
+
+    public boolean isYearsOfExperienceLabelDisplayed() { return yearsOfExperienceLabel.isDisplayed(); }
+    public String getYearsOfExperienceLabelText() { return yearsOfExperienceLabel.getText(); }
+
+    public boolean isSkillsLabelDisplayed() { return skillsLabel.isDisplayed(); }
+    public String getSkillsLabelText() { return skillsLabel.getText(); }
+
+    public boolean isWebsitesDevelopedLabelDisplayed() { return websitesDevelopedLabel.isDisplayed(); }
+    public String getWebsitesDevelopedLabelText() { return websitesDevelopedLabel.getText(); }
+
+    public boolean isAppsMadeLabelDisplayed() { return appsMadeLabel.isDisplayed(); }
+    public String getAppsMadeLabelText() { return appsMadeLabel.getText(); }
+
+    // ---------- Inputs visibility ----------
+    public boolean isUserNameInputDisplayed() { return userName.isDisplayed(); }
+    public boolean isYearsOfExperienceSelectDisplayed() { return yearsOfExperience.isDisplayed(); }
+    public boolean isSkillsInputDisplayed() { return skills.isDisplayed(); }
+    public boolean isWebsitesDevelopedInputDisplayed() { return websitesDeveloped.isDisplayed(); }
+    public boolean isAppsMadeInputDisplayed() { return appsMade.isDisplayed(); }
+    public boolean isTrackButtonDisplayed() { return trackButton.isDisplayed(); }
+
 }

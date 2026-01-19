@@ -1,7 +1,5 @@
 package org.pentagonprofilestats.testCases;
 
-import org.pentagonprofilestats.basePageObjects.BasePageObjectsUtil;
-import org.pentagonprofilestats.pageObjects.PPSHomePageObjects;
 import org.pentagonprofilestats.pageObjects.PPSResultDisplayPageObjects;
 import org.pentagonprofilestats.testBase.BaseTestCase;
 import org.testng.Assert;
@@ -17,30 +15,42 @@ public class PPS08TestCaseResultCard extends BaseTestCase {
         resultObj = getPPSResultDisplayPageObjects();
     }
 
-    @Test
-    public void verifyDisplayName(String actualName){
+
+    @Test(dependsOnGroups = "profileFlow")
+    public void verifyDisplayName(org.testng.ITestContext ctx) {
+        resultObj.waitForResultCardVisible();
         String displayedName = resultObj.getDisplayedName();
-        //write page object for isDisplayed
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(resultObj.isNameDisplayed(), "Name not displayed on Result card");
+        String actualName = (String) ctx.getAttribute("actualName");
+
+        org.testng.asserts.SoftAssert soft = new org.testng.asserts.SoftAssert();
+        soft.assertTrue(resultObj.isNameDisplayed(), "Name not displayed on Result card");
+        soft.assertAll();
+
         Assert.assertEquals(displayedName, actualName, "Displayed Name is not same as Actual Name");
     }
-    @Test
-    public void verifyCupIcon(){
+
+    @Test(dependsOnGroups = "profileFlow")
+    public void verifyCupIcon() {
+        resultObj.waitForResultCardVisible();
         Assert.assertTrue(resultObj.isCupIconDisplayed(), "Cup Icon not displayed on Result Card");
     }
 
-    @Test
-    public void verifyCategory(String category){
-        Assert.assertTrue(resultObj.isCatergoryDisplayed(), "catergory not displayed on Result Card");
+    @Test(dependsOnGroups = "profileFlow")
+    public void verifyCategory() {
+        resultObj.waitForResultCardVisible();
+        Assert.assertTrue(resultObj.isCatergoryDisplayed(), "Category not displayed on Result Card");
     }
 
-    @Test
-    public void verifyStar(){
+    @Test(dependsOnGroups = "profileFlow")
+    public void verifyStar() {
+        resultObj.waitForResultCardVisible();
         Assert.assertTrue(resultObj.isStarsDisplayed(), "Stars not displayed on Result Card");
     }
-    @Test
-    public void verifyCaption(){
+
+    @Test(dependsOnGroups = "profileFlow")
+    public void verifyCaption() {
+        resultObj.waitForResultCardVisible();
         Assert.assertTrue(resultObj.isCaptionDisplayed(), "Caption not displayed on Result Card");
     }
+
 }

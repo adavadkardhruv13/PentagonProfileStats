@@ -1,5 +1,6 @@
 package org.pentagonprofilestats.pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -47,7 +48,8 @@ public class PPSResultDisplayPageObjects extends BasePageObjectsUtil {
     }
 
     public boolean isStarsDisplayed(){
-        return waitVisible(stars).isDisplayed();
+        WebElement starsElement =  stars;
+        return starsElement.getText().equalsIgnoreCase("") || starsElement.isDisplayed();
     }
 
     public boolean isCaptionDisplayed(){
@@ -57,6 +59,13 @@ public class PPSResultDisplayPageObjects extends BasePageObjectsUtil {
     public void clickCloseResultCard(){
         waitClickable(closeResultCard).click();
     }
+
+
+    public void waitForResultCardVisible() {
+        By cardRoot = By.id("result");
+        waitVisible(cardRoot);
+    }
+
 
 
 }

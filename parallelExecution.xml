@@ -1,0 +1,43 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="PentagonProfileStats - Functional" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="org.pentagonprofilestats.utilities.ExtentManager"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="chrome Test">
+        <parameter name="os" value="windows"/>
+        <parameter name="browser" value="chrome"/>
+        <groups>
+            <run>
+                <include name="functional"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="org.pentagonprofilestats.testCases"/>
+        </packages>
+    </test>
+    <test name="MicrosoftEdge Test">
+        <parameter name="os" value="windows"/>
+        <parameter name="browser" value="edge"/>
+        <groups>
+            <run>
+                <include name="functional"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="org.pentagonprofilestats.testCases"/>
+        </packages>
+    </test>
+<!--    <test name="FireFox Test">-->
+<!--        <parameter name="os" value="windows"/>-->
+<!--        <parameter name="browser" value="firefox"/>-->
+<!--        <groups>-->
+<!--            <run>-->
+<!--                <include name="functional"/>-->
+<!--            </run>-->
+<!--        </groups>-->
+<!--        <packages>-->
+<!--            <package name="org.pentagonprofilestats.testCases"/>-->
+<!--        </packages>-->
+<!--    </test>-->
+</suite>
